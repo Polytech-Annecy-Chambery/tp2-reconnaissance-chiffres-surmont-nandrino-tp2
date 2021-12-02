@@ -12,5 +12,22 @@ def lecture_modeles(chemin_dossier):
 
 
 def reconnaissance_chiffre(image, liste_modeles, S):
-    pass
+    rapport=0
+    count=0
+    object=image.binarisation(S)
+    
+    for ref in liste_modeles:
+        object_resized=object.resize(ref.H,ref.W)
+        sim=object_resized.similitude(ref)
+        print(sim)
+        
+        if rapport<sim:
+            rapport=sim
+            modele=count
+
+        count+=1
+        
+    
+    return modele
+        
 

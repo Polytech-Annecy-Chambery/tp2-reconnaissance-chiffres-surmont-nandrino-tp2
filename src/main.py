@@ -17,7 +17,7 @@ from reconnaissance import reconnaissance_chiffre, lecture_modeles
 if __name__ == '__main__':
 
     # Variables utiles
-    path_to_assets = '../assets/'
+    path_to_assets = 'C:/Users/surmontt/Desktop/assets/'
     plt.ion() # Mode interactif de matplotlib our ne pas bloquer l'éxécutions lorsque l'on fait display
 
     #==============================================================================
@@ -43,12 +43,12 @@ if __name__ == '__main__':
     #==============================================================================
     # Redimensionnement de l'image et affichage
     #==============================================================================
-    image_resizee = image_localisee.resize(100, 500)
+    image_resizee = image_localisee.resize(100, 400)
     image_resizee.display("Image redimensionee")
 
     #==============================================================================
     # Lecture modeles et reconnaissance
     #==============================================================================
     liste_modeles = lecture_modeles(path_to_assets)
-    chiffre = reconnaissance_chiffre(image, liste_modeles, 70)
+    chiffre = reconnaissance_chiffre(image, liste_modeles, 120)
     print("Le chiffre reconnu est : ", chiffre)
