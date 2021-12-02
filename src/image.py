@@ -56,8 +56,8 @@ class Image:
 
         # TODO: boucle imbriquees pour parcourir tous les pixels de l'image im_bin
         # et calculer l'image binaire
-        for i in range (self.W):
-            for j in range (self.H):
+        for i in range (self.H):
+            for j in range (self.W):
                 if self.pixels[i,j]<S:
                     im_bin.pixels[i,j]=0
                 else : 
@@ -75,11 +75,24 @@ class Image:
     #==============================================================================
     def localisation(self):
         im_loc=Image()
-        c_min=self.W
+        c_min=self.W-1
         c_max=0
-        l_min=self.H
+        l_min=self.H-1
         l_max=0
         
+        
+        for l in range (self.H):
+            for c in range (self.W):
+                if self.pixels[l,c]==0:
+                    l_min=l
+                    step=True
+                    
+                
+                
+                
+        
+        
+        """
         #test pour c_min
         for i in range (self.W):
             count_min=0
@@ -134,7 +147,8 @@ class Image:
         for l in range (l_max-l_min):
             for c in range (c_max-c_min):
                 im_loc.pixels[l,c]=self.pixels[l_min+l,c_min+c]
-
+        """
+        im_loc=self.pixels[l_min:l_max-1,c_min:c_max-1]
         return im_loc
 
     #==============================================================================
