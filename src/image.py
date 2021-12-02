@@ -74,7 +74,6 @@ class Image:
     #   on retourne une nouvelle image recadree
     #==============================================================================
     def localisation(self):
-        im_loc=Image()
         c_min=self.W-1
         c_max=0
         l_min=self.H-1
@@ -84,93 +83,56 @@ class Image:
         step3=False
         step4=False
         
-        while step1 ==False :
-            for l in range (self.H):
-                for c in range (self.W):
-                    if self.pixels[l,c]==0:
-                        l_min=l
-                        step1=True
-                
-        while step2 ==False : 
+        
+        for l in range (self.H):
             for c in range (self.W):
-                for l in range (self.H):
-                    if self.pixels[l,c]==0:
-                        c_min=c
-                        step2=True
+                if self.pixels[l,c]==0:
+                    l_min=l
+                    step1=True
+                    break
+            if step1==True:
+                break
                 
-        while step3 ==False : 
-            for c in reversed (range (self.W)):
-                for l in range (self.H):
-                    if self.pixels[l,c]==0:
-                        c_max=c
-                        step3=True
-            
-            
-        while step4 ==False : 
-            for l in reversed (range (self.H)):
-                for c in range (self.W):
-                    if self.pixels[l,c]==0:
-                        l_max=l
-                        step4=True
-            
+
+        for c in range (self.W):
+            for l in range (self.H):
+                if self.pixels[l,c]==0:
+                    c_min=c
+                    step2=True
+                    break
+            if step2==True:
+                break
+
+        for c in reversed (range (0,self.W)):
+            for l in range (self.H):
+                if self.pixels[l,c]==0:
+                    c_max=c
+                    step3=True
+                    break
+            if step3==True:
+                break
+        
+
+        for l in reversed (range (0,self.H)):
+            for c in range (self.W):
+                if self.pixels[l,c]==0:
+                    l_max=l
+                    step4=True
+                    break
+            if step4==True:
+                break
         """
-        #test pour c_min
-        for i in range (self.W):
-            count_min=0
-            for j in range (self.H):
-                while self.pixels[i,j]==255:
-                    count_min=count_min+1
-                if count_min<c_min:
-                    c_min=count_min
-                    
-        #test pour c_max
-        for i in range (self.H):
-            count_max=0
-            indice_colonne=self.W
-            
-            while indice_colonne>0:
-                if self.pixels[i,indice_colonne]==0:
-                    count_max=indice_colonne
-                    indice_colonne=0
-                else:
-                    indice_colonne=indice_colonne-1
-            
-            if count_max>c_max:
-                c_max=count_max
-        
-        #test pour l_min
-        for i in range (self.H):
-            count_min=0
-            for j in range (self.W):
-                while self.pixels[i,j]==255:
-                    count_min=count_min+1
-                if count_min<l_min:
-                    l_min=count_min
-        
-        #test pour l_max
-        for i in range (self.W):
-            count_max=0
-            indice_ligne=self.H
-            
-            while indice_ligne>0:
-                if self.pixels[i,indice_ligne]==0:
-                    count_max=indice_ligne
-                    indice_ligne=0
-                else:
-                    indice_ligne=indice_ligne-1
-            
-            if count_max>l_max:
-                l_max=count_max
-        
-        
         im_loc.set_pixels(np.zeros((l_max-l_min, c_max-c_min), dtype=np.uint8))
         
         for l in range (l_max-l_min):
             for c in range (c_max-c_min):
                 im_loc.pixels[l,c]=self.pixels[l_min+l,c_min+c]
         """
-        im_loc=self.pixels[l_min:l_max-1,c_min:c_max-1]
+        im_loc=Image()
+        im_loc.set_pixels(self.pixels[l_min:l_max+1,c_min:c_max+1])
         return im_loc
+
+
 
     #==============================================================================
     # Methode de redimensionnement d'image
