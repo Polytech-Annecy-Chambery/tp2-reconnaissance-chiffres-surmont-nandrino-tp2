@@ -38,7 +38,6 @@ class Image:
         else:
             print("L'image est vide. Rien à afficher")
 
-
     #==============================================================================
     # Methode de binarisation
     # 2 parametres :
@@ -47,7 +46,23 @@ class Image:
     #   on retourne une nouvelle image binarisee
     #==============================================================================
     def binarisation(self, S):
-        pass
+        # creation d'une image vide
+        im_bin = Image()
+        
+        # affectation a l'image im_bin d'un tableau de pixels de meme taille
+        # que self dont les intensites, de type uint8 (8bits non signes),
+        # sont mises a 0
+        im_bin.set_pixels(np.zeros((self.H, self.W), dtype=np.uint8))
+
+        # TODO: boucle imbriquees pour parcourir tous les pixels de l'image im_bin
+        # et calculer l'image binaire
+        for i in range (S.W):
+            for j in range (S.H):
+                if S.pixels[i,j]<128:
+                    im_bin.pixels[i,j]=0
+                else : 
+                    im_bin.pixels[i,j]=255
+        return im_bin
 
 
     #==============================================================================
@@ -59,7 +74,66 @@ class Image:
     #   on retourne une nouvelle image recadree
     #==============================================================================
     def localisation(self):
-        pass
+        im_loc=Image()
+        c_min=self.W
+        c_max=0
+        l_min=self.H
+        l_max=0
+        
+        #test pour c_min
+        for i in range (self.W):
+            count_min=0
+            for j in range (self.H):
+                while self.pixels[i,j]==255:
+                    count_min=count_min+1
+                if count_min<c_min:
+                    c_min=count_min
+                    
+        #test pour c_max
+        for i in range (self.H):
+            count_max=0
+            indice_colonne=self.W
+            
+            while indice_colonne>0:
+                if self.pixels[i,indice_colonne]==0:
+                    count_max=indice_colonne
+                    indice_colonne=0
+                else:
+                    indice_colonne=indice_colonne-1
+            
+            if count_max>c_max:
+                c_max=count_max
+        
+        #test pour l_min
+        for i in range (self.H):
+            count_min=0
+            for j in range (self.W):
+                while self.pixels[i,j]==255:
+                    count_min=count_min+1
+                if count_min<l_min:
+                    l_min=count_min
+        
+        #test pour l_max
+        for i in range (self.W):
+            count_max=0
+            indice_ligne=self.H
+            
+            while indice_ligne>0:
+                if self.pixels[i,indice_ligne]==0:
+                    count_max=indice_ligne
+                    indice_ligne=0
+                else:
+                    indice_ligne=indice_ligne-1
+            
+            if count_max>l_max:
+                l_max=count_max
+        
+        
+        im_loc.set_pixels(np.zeros((l_max-l_min, c_max-c_min), dtype=np.uint8))
+        
+        
+
+        return im_loc
 
     #==============================================================================
     # Methode de redimensionnement d'image
