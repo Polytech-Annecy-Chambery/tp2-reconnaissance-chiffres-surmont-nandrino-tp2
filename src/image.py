@@ -56,9 +56,9 @@ class Image:
 
         # TODO: boucle imbriquees pour parcourir tous les pixels de l'image im_bin
         # et calculer l'image binaire
-        for i in range (S.W):
-            for j in range (S.H):
-                if S.pixels[i,j]<128:
+        for i in range (self.W):
+            for j in range (self.H):
+                if S.pixels[i,j]<S:
                     im_bin.pixels[i,j]=0
                 else : 
                     im_bin.pixels[i,j]=255
@@ -131,7 +131,9 @@ class Image:
         
         im_loc.set_pixels(np.zeros((l_max-l_min, c_max-c_min), dtype=np.uint8))
         
-        
+        for l in range (l_max-l_min):
+            for c in range (c_max-c_min):
+                im_loc.pixels[l,c]=self.pixels[l_min+l,c_min+c]
 
         return im_loc
 
