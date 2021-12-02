@@ -79,20 +79,28 @@ class Image:
         c_max=0
         l_min=self.H-1
         l_max=0
+        step1=False
+        step2=False
+        step3=False
+        step4=False
+        
+        while step1 ==False :
+            for l in range (self.H):
+                for c in range (self.W):
+                    if self.pixels[l,c]==0:
+                        l_min=l
+                        step1=True
+                
+        while step2 ==False : 
+            for c in range (self.W):
+                for l in range (self.H):
+                    if self.pixels[l,c]==0:
+                        c_min=c
+                        step2=True
+                
+        
         
         """
-        for l in range (self.H):
-            for c in range (self.W):
-                if self.pixels[l,c]==0:
-                    l_min=l
-                    step=True
-         """           
-                
-                
-                
-        
-        
-        
         #test pour c_min
         for i in range (self.W):
             count_min=0
@@ -140,7 +148,7 @@ class Image:
             
             if count_max>l_max:
                 l_max=count_max
-        
+        """
         
         im_loc.set_pixels(np.zeros((l_max-l_min, c_max-c_min), dtype=np.uint8))
         
