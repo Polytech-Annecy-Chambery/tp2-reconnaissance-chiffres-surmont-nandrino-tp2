@@ -58,7 +58,7 @@ class Image:
         # et calculer l'image binaire
         for i in range (self.W):
             for j in range (self.H):
-                if S.pixels[i,j]<S:
+                if self.pixels[i,j]<S:
                     im_bin.pixels[i,j]=0
                 else : 
                     im_bin.pixels[i,j]=255
