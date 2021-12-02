@@ -83,7 +83,6 @@ class Image:
         step3=False
         step4=False
         
-        
         for l in range (self.H):
             for c in range (self.W):
                 if self.pixels[l,c]==0:
@@ -121,13 +120,7 @@ class Image:
                     break
             if step4==True:
                 break
-        """
-        im_loc.set_pixels(np.zeros((l_max-l_min, c_max-c_min), dtype=np.uint8))
-        
-        for l in range (l_max-l_min):
-            for c in range (c_max-c_min):
-                im_loc.pixels[l,c]=self.pixels[l_min+l,c_min+c]
-        """
+       
         im_loc=Image()
         im_loc.set_pixels(self.pixels[l_min:l_max+1,c_min:c_max+1])
         return im_loc
@@ -148,5 +141,21 @@ class Image:
     # Methode de mesure de similitude entre l'image self et un modele im
     #==============================================================================
     def similitude(self, im):
-        pass
+        pix_total=0
+        pix_similitude=0
+        
+        #pas de resize à faire ici
+        for i in range (im.H):
+            for j in range (im.W):
+                pix_total+=1
+                
+                if self.pixels[i,j]==im.pixels[i,j]:
+                    pix_similitude+=1
+                    
+        
+        ratio=pix_similitude/pix_total
+        return ratio
+        
+        
+        
 
